@@ -6,9 +6,6 @@ import csv
 def insert_students():
 
     students = []
-    new_student = 0
-    name_and_averageGrade = []
-    top_3_students = []
 
     while True:
         print('This is the current list of students:\n')
@@ -110,14 +107,30 @@ def insert_students():
                 print('-------------------------')
             break
 
+    return students
+
+
+def get_students_average_grade(students):
+
     name_and_averageGrade = [{'Name' : student['Name'], 'Average grade' : student['Average grade']} for student in students]
+
+    full_name_and_averageGrade = ""
+    for student in name_and_averageGrade:
+        full_name_and_averageGrade += f"{student['Name']}: {student['Average grade']}\n"
+
+    print(f'This is the list of students with their average grade:\n{full_name_and_averageGrade}')
+
+    return name_and_averageGrade
     
-    top_3_students = sorted(name_and_averageGrade, key = lambda x : x ['Average grade'], reverse = True) [:3]
 
-    for student in top_3_students:
-        print(f"{student['Name']}: {student['Average grade']}")
+def get_top_3_students(name_and_averageGrade):
+    top_3 = sorted(name_and_averageGrade, key = lambda x : x ['Average grade'], reverse = True) [:3]
+    print('Top 3 students:\n')
+    for student in top_3:
+        print(f"{student['Name']}: {student['Average grade']}:")
 
 
+students = insert_students()
+name_and_averageGrade = get_students_average_grade(students)
+get_top_3_students(name_and_averageGrade)
 
-
-insert_students()
