@@ -14,41 +14,41 @@ def trigger_menu():
         print("7. Exit")
 
         try:
-            choice = int(input("Choose an option: "))
+            option = int(input("Choose an option: \n"))
         except ValueError:
-            print("Please enter a valid number.")
+            print("Please enter a valid option.")
             continue
 
-        if choice == 1:
+        if option == 1:
             students = insert_students_info.insert_students()
             for student in students:
                 read_file.add_student(student)
 
-        elif choice == 2:
+        elif option == 2:
             students = read_file.get_all_students()
             handle_students.display_all_students(students)
 
-        elif choice == 3:
+        elif option == 3:
             students = read_file.get_all_students()
             handle_students.get_top_3_students(students)
 
-        elif choice == 4:
+        elif option == 4:
             students = read_file.get_all_students()
             handle_students.get_average_of_averages(students)
 
-        elif choice == 5:
-            print("Data is automatically exported when adding a student.")
+        elif option == 5:
+            print("Data is exported when adding a student.")
 
-        elif choice == 6:
+        elif option == 6:
             students = read_file.get_all_students()
             if students:
                 print("Data successfully imported from CSV.\n")
                 handle_students.display_all_students(students)
             else:
-                print("No CSV file found or it's empty.")
+                print("No file found or it's empty.")
 
-        elif choice == 7:
-            print("Thank you for using the system. Goodbye!")
+        elif option == 7:
+            print("Thanks for using the app. Bye!")
             break
 
         else:
