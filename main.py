@@ -1,3 +1,3 @@
-from actions import insert_students_info
+from menu import menu
 
-insert_students_info.insert_students()
+menu.trigger_menu()
