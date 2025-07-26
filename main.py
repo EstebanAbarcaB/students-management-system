@@ -1,3 +1,3 @@
-from menu import menu
+from menu.menu import trigger_menu
 
-menu.trigger_menu()
+trigger_menu()

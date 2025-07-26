@@ -1,8 +1,13 @@
-from actions import insert_students_info
-from actions import handle_students
-from data import read_file
+from actions.insert_students_info import insert_students
+from actions.handle_students import (
+    display_all_students,
+    get_top_3_students,
+    get_average_of_averages
+)
+from data.read_file import export_students_to_csv, get_all_students
 
 def trigger_menu():
+    students = []  
     while True:
         print("\n==== STUDENT MANAGEMENT SYSTEM MENU ====")
         print("1. Add student information")
@@ -14,41 +19,42 @@ def trigger_menu():
         print("7. Exit")
 
         try:
-            option = int(input("Choose an option: \n"))
+            option = int(input("Choose an option: "))
         except ValueError:
-            print("Please enter a valid option.")
+            print("Please enter a valid number.")
             continue
 
         if option == 1:
-            students = insert_students_info.insert_students()
-            for student in students:
-                read_file.add_student(student)
+            new_students = insert_students()
+            students.extend(new_students)
 
         elif option == 2:
-            students = read_file.get_all_students()
-            handle_students.display_all_students(students)
+            display_all_students(students)
 
         elif option == 3:
-            students = read_file.get_all_students()
-            handle_students.get_top_3_students(students)
+            get_top_3_students(students)
 
         elif option == 4:
-            students = read_file.get_all_students()
-            handle_students.get_average_of_averages(students)
+            get_average_of_averages(students)
 
         elif option == 5:
-            print("Data is exported when adding a student.")
+            if not students:
+                print("No students to export.")
+            else:
+                export_students_to_csv(students)
+                print("Data successfully exported to CSV.")
 
         elif option == 6:
-            students = read_file.get_all_students()
-            if students:
-                print("Data successfully imported from CSV.\n")
-                handle_students.display_all_students(students)
+            loaded = get_all_students()
+            if not loaded:
+                print("No CSV file found or it’s empty.")
             else:
-                print("No file found or it's empty.")
+                students = loaded
+                print("Data successfully imported from CSV.")
+                display_all_students(students)
 
         elif option == 7:
-            print("Thanks for using the app. Bye!")
+            print("Thanks for using the system. Bye!")
             break
 
         else:
